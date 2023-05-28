@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +21,10 @@ public class UserTest {
     UserRepository userRepository;
 
     @Test
+    @Transactional
     public void test1() {
         var e = new User();
+        e.setId(1);
         e.setName("東京 太郎");
         userRepository.save(e);
 
@@ -28,8 +32,7 @@ public class UserTest {
         assertEquals(1, result.size());
 
         var user = result.get(0);
-        assertEquals(1, user.getId());
-        assertEquals(e.getName(), user.getName());
+        assertEquals(e, user);
     }
 
 }

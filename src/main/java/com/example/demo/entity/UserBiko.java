@@ -2,19 +2,19 @@ package com.example.demo.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 @Entity
 @Table(name = "t_user_biko")
 public class UserBiko {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id")
     private long id;
 
@@ -23,4 +23,10 @@ public class UserBiko {
 
     @Column(name = "biko")
     private String biko;
+
+    //@ToString.Exclude
+    // t_user_biko n:1 t_user 
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable=false, updatable=false)
+    private User user;
 }
